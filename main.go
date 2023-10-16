@@ -70,16 +70,8 @@ func main() {
 }
 
 func createTrainset(ratings *Ratings) *Trainset {
-	//userCats := createCategoryCodes(ratings.Users)
-	//filmCats := createCategoryCodes(ratings.Items)
-	//userCodes := reverseMap(userCats)
-	//filmCodes := reverseMap(filmCats)
 	return &Trainset{
-		Ratings: ratings,
-		//Users:      userCats,
-		//Items:      filmCats,
-		//UserCodes:  userCodes,
-		//ItemCodes:  filmCodes,
+		Ratings:    ratings,
 		NumUsers:   len(ratings.UserMap),
 		NumItems:   len(ratings.ItemMap),
 		NumRatings: len(ratings.Ratings),
@@ -253,24 +245,4 @@ func loadRatingsFromCSV(fileName string) Ratings {
 		ratings.Ratings = append(ratings.Ratings, rating)
 	}
 	return ratings
-}
-
-func createCategoryCodes(strings []string) map[string]int {
-	codes := make(map[string]int)
-	code := 0
-	for _, str := range strings {
-		if _, ok := codes[str]; !ok {
-			codes[str] = code
-			code++
-		}
-	}
-	return codes
-}
-
-func reverseMap(m map[string]int) map[int]string {
-	r := make(map[int]string, len(m))
-	for k, v := range m {
-		r[v] = k
-	}
-	return r
 }
